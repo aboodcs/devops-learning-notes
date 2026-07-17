@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web
+  name: web
+  namespace: easy-exam-03
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - image: web:latest
+        name: web
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: UPLOAD_DIR
+          valueFrom:
+            configMapKeyRef:
+              name: upload-config
+              key: UPLOAD_DIR
+        - name: PORT
+          value: "8080"
+        volumeMounts:
+        - mountPath: /app/uploads
+          name: upload-volume
+      volumes:
+      - name: upload-volume
+        persistentVolumeClaim:
+          claimName: upload-pvc

@@ -1,0 +1,12 @@
+replicaCount: 2
+
+image:
+  repository: aboodcs/flask-helm
+  tag: "v1"
+
+service:
+  type: NodePort
+  port: 80
+
+appName: "Flask Helm App"
+appEnv: "dev"

@@ -1,0 +1,20 @@
+services:
+  uploader:
+    build: .
+    container_name: uploader
+    environment:
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "8080:5000"
+    volumes:
+      - uploaded:/app/uploads
+    networks:
+      - app-network
+
+volumes:
+  uploaded:
+    name: uploaded-data
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: easy-exam-01
+  labels:
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: web:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: web-config

@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  UPLOAD_DIR: /app/uploads
+kind: ConfigMap
+metadata:
+  name: upload-config
+  namespace: easy-exam-03

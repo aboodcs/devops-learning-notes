@@ -1,0 +1,87 @@
+kubectl create deployment --image=nginx nginx-app
+
+kubectl get deployments
+
+kubectl get pods
+
+kubectl get services
+
+kubectl get all
+
+kubectl  scale deployment nginx-app --replicas=3
+
+kubectl get replicaset
+
+minikube dashboard
+
+kubectl delete dashboard --all
+
+kubectl apply -f helloworld.yaml 
+
+kubectl describe pod nginx
+
+kubectl exec -it nginx -- /bin/bash
+
+kubectl get pods --show-labels
+
+kubectl label pod nginx owner=abood
+
+(kubectl get pods --selector hi=abood) or (kubectl get pods -l hi=abood)
+
+kibectl get pods -l hi!=abood
+
+kubectl get pods -o wide
+
+minikube ssh -> docker@minikube:~$
+
+kubectl expose deployment <file_name_wihtout_.yaml>   --name=   --type=ClusterIP --port=8080 target-port=80
+kubectl port-forward service/apache-service 8090:8080
+
+kubectl create service clusterip database --tcp=5432:5432 -n medium-exam-01 --dry-run=client -o yaml > k8s/db-service.yaml 
+
+kubectl get configmap
+
+kubectl create cm config-file --from-file=/home/abood/k8s/db.properties
+
+kubectl get cm config-file -o yaml
+
+kubectl delete cm config-file 
+
+kubectl describe cm config-file
+
+kubectl create cm keys  --from-file=/home/abood/k8s/
+
+kubectl create cm newconfig --from-literal=env=test --from-literal=ipaddress=172.0.0.5
+
+kubectl create secret generic test-secret --from-literal="username=admin" --from-literal="password=12345"
+
+kubectl get secret
+
+kubectl get   nodes  -o wide
+
+kubectl get nodes
+
+kubectl get replicaset -A
+
+kubectl get rc --no-headers | wc -l
+
+kubectl get deployment --no-headers | wc -l
+
+# to bring the color of web application?
+first thing we get the pods 
+kubectl get pods 
+then check the svc 
+kubectl get svc
+ex: webapp-service   NodePort   8080:30080/TCP we take the 30080
+then make the curl http://controlplane:30080
+Search only for the background color
+curl -s http://controlplane:30080 | grep -i background
+
+Update a deployment:
+kubectl set image deploy frontend simple-webapp=kodekloud/webapp-color:v2
+
+Check rollout status:
+kubectl rollout status deployment/my-app
+
+If something goes wrong, roll back:
+kubectl rollout undo deployment/my-app

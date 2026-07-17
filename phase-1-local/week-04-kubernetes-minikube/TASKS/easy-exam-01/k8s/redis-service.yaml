@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+  name: redis-service
+  namespace: easy-exam-01
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+    targetPort: 6379
+  selector:
+    app: redis
+  type: ClusterIP
+status:
+  loadBalancer: {}
